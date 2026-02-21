@@ -1,2 +1,2 @@
 aws_region   = "us-east-1"
-project_name = "Dashboard-de-energia-eletrica"
+project_name = "dashboard-de-energia-eletrica"
