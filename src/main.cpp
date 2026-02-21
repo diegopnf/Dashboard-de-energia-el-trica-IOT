@@ -1,5 +1,9 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
+#include <WiFi.h>
+#include <DNSServer.h>
+#include <WebServer.h>
+#include <WiFiManager.h>
 
 // --- CONFIGURAÇÕES DE IDENTIDADE ---
 // DEVE ser idêntico ao 'device_id' no variables.tf do Terraform
@@ -13,6 +17,15 @@ void setup() {
     Serial.begin(115200);
     delay(2000);
     Serial.println("--- Monitor de Energia IoT Iniciado ---");
+    WiFiManager wm;
+    bool res = wm.autoConnect("ESP32 Medidor de energia");
+
+    if(!res) {
+        Serial.println("Falha na conexão. Reiniciando...");
+        ESP.restart();
+    } else {
+        Serial.println("Conectado com sucesso à rede WiFi!");
+    }
     Serial.printf("ID: %s | Versao: %s\n", DEVICE_ID, FW_VERSION);
 }
 
