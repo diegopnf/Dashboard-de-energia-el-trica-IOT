@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "project_name" {
   description = "Nome do projeto para identificação de recursos"
   type        = string
-  default     = "Dashboard-de-energia-eletrica"
+  default     = "dashboard-de-energia-eletrica"
 }
 
 variable "device_id" {

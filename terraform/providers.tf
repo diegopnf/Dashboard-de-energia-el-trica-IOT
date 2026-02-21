@@ -9,7 +9,7 @@ terraform {
 
   backend "s3" {
     bucket = "backend-terraform-iot-dashboard" 
-    key    = "state/terraform.tfstate"
+    key    = "state/develop/terraform.tfstate"
     region = "us-east-1"
   }
 }
