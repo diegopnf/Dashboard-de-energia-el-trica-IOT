@@ -29,10 +29,20 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "us-east-1" # Verifique se esta região é a mesma do seu bucket
       
-      - name: Terraform Import Bucket
-        run: terraform import aws_s3_bucket.firmware dashboard-de-energia-eletrica-firmware-repo
+      - name: Terraform Import Resources
+        run: |
+          # Importar o Bucket
+          terraform import aws_s3_bucket.firmware dashboard-de-energia-eletrica-firmware-repo || true
+          
+          # Importar a Regra de IoT
+          terraform import aws_iot_topic_rule.energia_rule EnergiaToDynamoDB || true
+          
+          # Importar a Política de IoT
+          terraform import aws_iot_policy.esp32_policy dashboard-de-energia-eletrica-policy || true
+          
+          # Importar a Tabela DynamoDB
+          terraform import aws_dynamodb_table.telemetria dashboard-de-energia-eletrica-dados || true
         working-directory: ./terraform
-        continue-on-error: true 
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
